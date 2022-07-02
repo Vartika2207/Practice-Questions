@@ -23,8 +23,6 @@ true
 
 */
 
-
-
 /**********************************************************
 	Following is the Binary Tree Node class structure
 
@@ -44,7 +42,6 @@ true
 
 ***********************************************************/
 /********************/
-//time: 0(node*height)=>higher time complexity
 int height(BinaryTreeNode<int> *root){
     if(root == nullptr)
         return 0;
@@ -69,6 +66,45 @@ bool isBalanced_(BinaryTreeNode<int> *root) {
 }
 /********************/
 
+/********************/
+//time: O(n), better approach
+class pair_BT{
+    public:
+        int height;
+        bool balanced;
+};
+
+pair_BT* isBalanced_helper(BinaryTreeNode<int> *root){
+    if(root == nullptr){
+        pair_BT* new_pair = new pair_BT();
+        new_pair->height = 0;
+        new_pair->balanced = true;
+        return new_pair;
+    }
+    
+    pair_BT* left_ = isBalanced_helper(root->left);
+    pair_BT* right_ = isBalanced_helper(root->right);
+    
+    bool is_balanced;
+    if(!left_->balanced || !right_->balanced || abs(left_->height - right_->height) > 1)
+        is_balanced = false;
+    else
+        is_balanced = true;
+    
+    pair_BT* new_pair = new pair_BT();
+    new_pair->height = 1 + max(left_->height, right_->height);
+    new_pair->balanced = is_balanced;
+    
+    return new_pair;
+}
+
+bool isBalanced_better(BinaryTreeNode<int> *root) {
+    if(root == nullptr)
+        return true;
+    return isBalanced_helper(root)->balanced;
+}
+/********************/
+
 bool isBalanced(BinaryTreeNode<int> *root) {
-    return isBalanced_(root);
+    return isBalanced_better(root);
 }
