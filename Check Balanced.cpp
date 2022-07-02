@@ -44,6 +44,7 @@ true
 
 ***********************************************************/
 /********************/
+//time: 0(node*height)=>higher time complexity
 int height(BinaryTreeNode<int> *root){
     if(root == nullptr)
         return 0;
