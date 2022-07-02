@@ -42,6 +42,7 @@ true
 
 ***********************************************************/
 /********************/
+//time: O(n*h)
 int height(BinaryTreeNode<int> *root){
     if(root == nullptr)
         return 0;
